@@ -2,8 +2,7 @@ import React, { useContext } from "react";
 import { StyleSheet, View, Text } from "react-native";
 import { ConfigContext } from "../Api/Context";
 import { Card, Button, Title, Paragraph } from "react-native-paper";
-
-import Characters from "./Characters";
+import { NavigationContainer } from "@react-navigation/native";
 
 const CardComponent = (props) => {
   const [episode] = React.useState(props.episode);
@@ -23,7 +22,7 @@ const CardComponent = (props) => {
         <Paragraph>{episode.air_date}</Paragraph>
       </Card.Content>
       <Card.Actions>
-        <Button>See details</Button>
+        <Button onPress={() => props.navigation.navigate('DetailsScreen', episode)}>See details</Button>
       </Card.Actions>
     </Card>
   );
