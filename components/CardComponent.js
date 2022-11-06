@@ -22,7 +22,7 @@ const CardComponent = (props) => {
         <Paragraph>{episode.air_date}</Paragraph>
       </Card.Content>
       <Card.Actions>
-        <Button onPress={() => props.navigation.navigate('DetailsScreen', episode)}>See details</Button>
+        <Button onPress={() => props.navigation.navigate('EPISODE DETAILS', episode)}>See details</Button>
       </Card.Actions>
     </Card>
   );

@@ -9,7 +9,7 @@ const Header = (navigation) => {
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerTitleAlign: "center" }}>
         <Stack.Screen name="FINAL SPACE EPISODES" component={HomeScreen} />
-        <Stack.Screen name="DetailsScreen" component={DetailsScreen} />
+        <Stack.Screen name="EPISODE DETAILS" component={DetailsScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
