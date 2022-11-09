@@ -1,33 +1,26 @@
 import React, { useEffect, useState } from "react";
-import { View, FlatList, Text, Image } from "react-native";
+import { View, Text, Image, ScrollView } from "react-native";
 import ApiManager from "../../Api/ApiManager";
-import { ConfigContext } from "../../Api/Context";
-import CardComponent from "../CardComponent";
 import { StyleSheet } from "react-native";
-import axios from "axios";
+
+import { Dimensions } from "react-native";
+const windowHeight = Dimensions.get("window").height / 3;
+const windowWidth = Dimensions.get("window").width;
 
 const DetailsScreen = (props) => {
-  const [characterImages, setCharacterImages] = useState([]);
+  const [character, setCharacter] = useState([]);
 
-  const getCharacterImages = async () => {
+  const getCharacter = async () => {
     try {
-      if (props.route.params.characters) {
-        let imageUrls = [];
-        props.route.params.characters.forEach(async (element) => {
-          let img_url = (await axios.get(element)).data.img_url;
-          imageUrls.push(img_url);
-        });
-        setCharacterImages(imageUrls);
-        console.log(characterImages)
-      }
+      const result = await ApiManager.get("character");
+      setCharacter(result.data);
     } catch (error) {
       console.error(error);
     }
   };
 
   useEffect(() => {
-    getCharacterImages()
-    //console.log(characterImages);
+    getCharacter();
   }, []);
 
   return (
@@ -39,29 +32,38 @@ const DetailsScreen = (props) => {
       <Text style={styles.air_date}>{props.route.params.air_date}</Text>
       <Text style={styles.name}>Episode name: {props.route.params.name}</Text>
       <Text style={styles.name}>Director: {props.route.params.director}</Text>
-      <FlatList
-        data={characterImages}
-        renderItem={({ item }) => (
-          <Text>{item}</Text>
-          //<Image style={styles.image} source={{ uri: item }}></Image>
-        )}
-      />
-      {/* {characterImages != []
-        ? characterImages.map((arg) => {
-            {
-              console.log(arg);
-              return <Text>{arg}</Text>;
-            } //<Image style={styles.image} source={{ uri: arg }}></Image>;
-          })
-        : console.log('asdasdasdas')} */}
+      <View style={{ height: windowHeight }}>
+        <ScrollView>
+          <View style={styles.charctersView}>
+            {character != [] &&
+              character.map((arg) => (
+                <Image
+                  key={arg.img_url}
+                  style={styles.avatar}
+                  source={{ uri: arg.img_url }}
+                />
+              ))}
+          </View>
+        </ScrollView>
+      </View>
+      <View style={{ flex: 1, flexDirection: "row-reverse" }}>
+        <Image
+          source={require("../../images/dislike.png")}
+          style={{ height: 60, width: 60 }}
+        />
+        <Image
+          source={require("../../images/like.png")}
+          style={{ height: 60, width: 60 }}
+        />
+      </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   image: {
-    height: "50%",
-    width: "100%",
+    height: windowHeight,
+    width: windowWidth,
     resizeMode: "cover",
   },
   air_date: {
@@ -75,6 +77,19 @@ const styles = StyleSheet.create({
     fontSize: 20,
     paddingTop: 10,
     fontWeight: "bold",
+  },
+  avatar: {
+    borderRadius: 50,
+    height: 50,
+    width: 50,
+    margin: 10,
+  },
+  charctersView: {
+    width: "100%",
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "center",
+    flex: 1,
   },
 });
 
