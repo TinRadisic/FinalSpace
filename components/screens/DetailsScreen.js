@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import { View, Text, Image, ScrollView } from "react-native";
 import ApiManager from "../../Api/ApiManager";
 import { StyleSheet } from "react-native";
-
 import { Dimensions } from "react-native";
+import { TouchableOpacity } from "react-native";
+
 const windowHeight = Dimensions.get("window").height / 3;
 const windowWidth = Dimensions.get("window").width;
 
@@ -34,14 +35,16 @@ const DetailsScreen = (props) => {
       <Text style={styles.name}>Director: {props.route.params.director}</Text>
       <View style={{ height: windowHeight }}>
         <ScrollView>
-          <View style={styles.charctersView}>
+          <View style={styles.charactersView}>
             {character != [] &&
               character.map((arg) => (
+                <TouchableOpacity key={arg.img_url} onPress={() => props.navigation.navigate("CharacterScreen", arg)}>
                 <Image
                   key={arg.img_url}
                   style={styles.avatar}
                   source={{ uri: arg.img_url }}
                 />
+                </TouchableOpacity>
               ))}
           </View>
         </ScrollView>
@@ -84,7 +87,7 @@ const styles = StyleSheet.create({
     width: 50,
     margin: 10,
   },
-  charctersView: {
+  charactersView: {
     width: "100%",
     flexDirection: "row",
     flexWrap: "wrap",

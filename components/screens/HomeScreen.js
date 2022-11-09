@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, FlatList, Text } from "react-native";
+import { View, FlatList } from "react-native";
 import ApiManager from "../../Api/ApiManager";
 import { ConfigContext } from "../../Api/Context";
 import CardComponent from "../CardComponent";

@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet } from "react-native";
 import { ConfigContext } from "../Api/Context";
-import { Card, Button, Title } from "react-native-paper";
+import { Card, Title } from "react-native-paper";
 
 const CardComponent = (props) => {
   const [episode] = React.useState(props.episode);
