@@ -20,7 +20,7 @@ const CharacterScreen = (props) => {
       <Text style={styles.name}>Gender: {props.route.params.gender}</Text>
       <Text style={styles.name}>Hair Color: {props.route.params.hair}</Text>
       <Text style={styles.name}>Origin: {props.route.params.origin}</Text>
-      <Text style={styles.name}>Abilities: {props.route.params.origin} </Text>
+      <Text style={styles.name}>Abilities: {props.route.params.abilities} </Text>
       <Text style={styles.name}>Alias: {props.route.params.alias}</Text>
       </ScrollView>
       </View>
