@@ -10,6 +10,7 @@ const windowWidth = Dimensions.get("window").width;
 
 const DetailsScreen = (props) => {
   const [character, setCharacter] = useState([]);
+  const [numberOfLikes, setNumberOfLikes] = useState(0);
 
   const getCharacter = async () => {
     try {
@@ -49,19 +50,26 @@ const DetailsScreen = (props) => {
           </View>
         </ScrollView>
       </View>
-      <View style={{ flex: 1, flexDirection: "row-reverse" }}>
+      <View style={{ flexDirection: "row-reverse" }}>
+        <TouchableOpacity onPress={() => setNumberOfLikes(numberOfLikes - 1)}>
         <Image
           source={require("../../images/dislike.png")}
           style={{ height: 60, width: 60 }}
         />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => setNumberOfLikes(numberOfLikes + 1)}>
         <Image
           source={require("../../images/like.png")}
           style={{ height: 60, width: 60 }}
         />
+        </TouchableOpacity>
+        <Text style={styles.likesNumber}>{numberOfLikes}</Text>
+        <Text style={styles.likesText}>Likes: </Text>
       </View>
     </View>
   );
 };
+
 
 const styles = StyleSheet.create({
   image: {
@@ -94,6 +102,21 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     flex: 1,
   },
+  likesNumber: {
+    color: 'black',
+    fontSize: 20,
+    paddingTop: 20,
+    fontWeight: 'bold',
+    paddingRight: 190
+  },
+  likesText:{
+    color: 'black',
+    fontSize: 20,
+    paddingTop: 20,
+    textAlign: 'left',
+    justifyContent: 'center',
+    fontWeight: 'bold',
+  }
 });
 
 export default DetailsScreen;
